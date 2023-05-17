@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Book Search</title>
+</head>
+<body>
+	<form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+		<label for="type_name">Book Type Name:</label>
+		<input type="text" name="type_name" id="type_name" required>
+		<input type="submit" name="submit" value="Search">
+	</form>
+	<br>
+
+	<?php
+		// Check if the form was submitted
+		if (isset($_POST['submit'])) {
+			// Define database credentials
+			$servername = "localhost";
+			$username = "username";
+			$password = "password";
+			$dbname = "database_name";
+
+			// Create connection
+			$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+			// Check connection
+			if (!$conn) {
+				die("Connection failed: " . mysqli_connect_error());
+			}
+
+			// Prepare the SQL statement with a placeholder
+			$stmt = mysqli_prepare($conn, "SELECT b.title, a.author_name, pb.pbh_name, b.year_of_publishment, bt.type_name, br.rent_date, br.rent_days, t.tenant_name
+				FROM BOOK b
+				JOIN AUTHOR a ON b.id=a.id
+				JOIN PUBLISHINGHOUSE pb ON b.id=pb.id
+				JOIN BOOKTYPE bt on b.id=bt.id
+				JOIN BOOKRENTING br on b.id=br.id
+				JOIN TENANT t on br.id=t.id
+				WHERE bt.type_name=?");
+
+			// Bind user input to the placeholder
+			mysqli_stmt_bind_param($stmt, "s", $_POST['type_name']);
+
+			// Execute the statement
+			mysqli_stmt_execute($stmt);
+
+			// Get the result set
+			$result = mysqli_stmt_get_result($stmt);
+
+			// Check if there are any results
+			if (mysqli_num_rows($result) > 0) {
+				// Output the results in a table
+				echo "<table border='1'>";
+				echo "<tr><th>Title</th><th>Author Name</th><th>Publishing House Name</th><th>Year of Publishment</th><th>Book Type Name</th><th>Rent Date</th><th>Rent Days</th><th>Tenant Name</th></tr>";
+				while ($row = mysqli_fetch_assoc($result)) {
+					echo "<tr>";
+					echo "<td>" . $row['title'] . "</td>";
+					echo "<td>" . $row['author_name'] . "</td>";
+					echo "<td>" . $row['pbh_name'] . "</td>";
+					echo "<td>" . $row['year_of_publishment'] . "</td>";
+					echo "<td>" . $row['type_name'] . "</td>";
+					echo "<td>" . $row['rent_date'] . "</td>";
+					echo "<td>" . $row['rent_days'] . "</td>";
+					echo "<td>" . $row['tenant_name'] . "</td>";
+					echo "</tr>";
+				}
+				echo "</table>";
+			} else {
+				echo "No results found.";
+			}
+
+			// Close the statement and connection
+			mysqli_stmt_close($stmt);
+			mysqli_close($conn);
+		}
+	?>
+</body>
+</html>

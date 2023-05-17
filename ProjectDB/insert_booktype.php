@@ -1,0 +1,52 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+
+<h1>Въвеждане на нов тип книга</h1><br>
+<form method="post">
+Тип на книга:<input type="text" name="booktype"/>
+<br>
+<input type="submit" name="submit" value="Въведи" /><br><br>
+</form>
+<?php
+include 'config.php';
+if(isset($_POST["submit"]))
+{
+    $booktype=$_POST['booktype'];
+
+    if(!empty($booktype))
+    {
+        $sql="INSERT INTO Book_type (Type_name) VALUES ('$booktype')";
+        $result = mysqli_query($dbConn, $sql);
+        if(!$result)
+        {
+            die ('Грешка!'.mysqli_error($dbConn));
+        }
+        echo 'Успешно въведохте тип на книгата';
+    }
+    else {
+        echo 'Не се получи!';
+    }
+
+    $sql='SELECT *FROM Book_type';
+    $result= mysqli_query($dbConn, $sql);
+
+    echo '<table border=1>';
+    echo '<tr>';
+    echo '<td>'.'Тип на книгата'.'</td>';
+    echo '<tr>';
+    while ($row = mysqli_fetch_array($result))
+    {
+        echo '<td>'.$row['Type_name'].'</td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+}
+
+?>
+<a href="index.php">Обратно към начало</a>
+</body>
+</html>
