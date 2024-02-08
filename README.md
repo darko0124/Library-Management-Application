@@ -1,6 +1,21 @@
 # HTML-PHP-project
-Library DB project (HTML+PHP+SQL)
+Library DB project
 
-In this project i had to make a database ( used SQL for managing the base and requests that are send to it). 
-You can execute main functions like Insert, Update, Delete, Select so you can retrive and manage the data however you like.
-The GUI is written in PHP. It's very simple and user friendly and it works properly. 
+(magnifying glass) Goal of the project :
+The main goal of this project was to make a database and create a usable GUI. 
+
+(gear) Tech Stack:
+- MySql DataBase
+- PHP
+
+(icon for features) Features:
+ - Add data for new books, authors, tenants and etc.
+ - Update the data if there are some changes that have to be made
+ - Delete unnecessary records
+ - Show data according to one or more criteria
+
+(stars) Improvement:
+ - It's going to be a good idea to add an option to export the reports in different file types(.xlsx, .pdf and etc.)
+ - To make the menu in sections with separate file pages
+ - To work on the UI and UX of the website
+
