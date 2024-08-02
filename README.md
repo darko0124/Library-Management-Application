@@ -1,10 +1,10 @@
 
 🔍 Goal of the project :
 
-- The main goal of this project was to make a database and create a usable GUI 
+- Make a database and create a usable GUI 
 
 ⚙️ Tech Stack:
-- MySql DataBase
+- MySql
 - PHP
 
 📚 Features:
