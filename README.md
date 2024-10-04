@@ -1,7 +1,7 @@
 
 🔍 Goal of the project :
 
-- Make a database and create a usable GUI 
+- Create a database to manage the data and provide a usable GUI for the user to interact with the data in the database.
 
 ⚙️ Tech Stack:
 - MySql
